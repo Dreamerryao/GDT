@@ -1,24 +1,35 @@
 import { useContext, useState, createContext } from "react";
 
 interface Interface {
-  data?: TreeNode,
-  onChangeData:(newData?:TreeNode) => void;
+  data?: Tree;
+  onChangeData: (newData?: Tree) => void;
 }
 
-export interface TreeNode {
-    name: string;
-    isExpanded?: boolean;
-    children?: TreeNode[];
-  }
-
-export interface Event {
-  eid: number;
-  archieve: boolean;
-  grade: number;
+export interface Tree {
+  id: string;
   name: string;
-  score: string;
-  semester: string;
-  key: string;
+  value: number;
+  children?: Tree[];
+}
+export interface TreeNode {
+  id: string;
+  children?: TreeNode[];
+}
+
+export interface GraphShape {
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+}
+
+export interface GraphNode {
+  id: string;
+  x?:number;
+  y?:number;
+}
+
+export interface GraphEdge {
+  source: string;
+  target: string;
 }
 
 const DataContext = createContext<Interface>(undefined!);
@@ -28,18 +39,17 @@ export function DataProvider({
 }: {
   children: JSX.Element | null;
 }) {
-  const [data,setData] = useState<TreeNode|undefined>(undefined);
+  const [data, setData] = useState<Tree | undefined>(undefined);
 
-  const onChangeData = (newData?:TreeNode) => {
+  const onChangeData = (newData?: Tree) => {
     setData(newData);
-  }
-
+  };
 
   return (
     <DataContext.Provider
       value={{
         data,
-        onChangeData
+        onChangeData,
       }}
     >
       {children}

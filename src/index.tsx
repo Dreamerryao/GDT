@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ParentSize from '@visx/responsive/lib/components/ParentSize';
-import Example from './Example';
-import UploadPage from './Upload';
+import App from './App';
 import 'antd/dist/antd.css';
+import { DataProvider } from './contexts/DataProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ParentSize>{({ width, height }) => <UploadPage />}</ParentSize>
-    {/* <ParentSize>{({ width, height }) => <Example width={width} height={height} />}</ParentSize> */}
+    <DataProvider>
+    <App />
+    </DataProvider>
   </React.StrictMode>
 );
 
