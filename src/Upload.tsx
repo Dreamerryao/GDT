@@ -45,6 +45,7 @@ const UploadPage = () => {
               id: "-1",
               name: "",
               value: 0,
+              collapsed:true
             };
             const insertTreeRoute = (tree: Tree, route: number[]) => {
               if (routeNodes[tree.name]) {
@@ -114,10 +115,11 @@ const UploadPage = () => {
             };
             arr.map((x) => {
               if (!routeNodes[x[0]]) {
-                const tmpTree = {
+                const tmpTree :Tree= {
                   id: key.toString(),
                   name: x[0],
                   value: 1,
+                  collapsed:true
                 };
                 let newRoot = roots[x[0]];
                 if (newRoot) {
@@ -136,10 +138,11 @@ const UploadPage = () => {
               }
 
               const routeNode1 = routeNodes[x[0]];
-              const tmpTree = {
+              const tmpTree:Tree = {
                 id: key.toString(),
                 name: x[1],
                 value: 1,
+                collapsed:true
               };
               const routeNode2 = routeNodes[x[1]];
               if (!routeNode2) {
@@ -160,16 +163,19 @@ const UploadPage = () => {
                     id: tmpTree.id,
                     name: tmpTree.name,
                     value: tmpTree.value,
+                    collapsed:true,
                     children: [
                       {
                         id: theParentNode!.id,
                         name: theParentNode!.name,
                         value: theParentNode!.value,
+                        collapsed:true,
                       },
                       {
                         id: routeNode1.id,
                         name: routeNode1.name,
                         value: routeNode1.value,
+                        collapsed:true,
                       },
                     ],
                   };
@@ -179,6 +185,7 @@ const UploadPage = () => {
                         name:routeNode1.name,
                         value:routeNode1.value,
                         id:routeNode1.id,
+                        collapsed:true,
                     }]
                     repeatDependNodes[tmpTree.name] = repeatDependNodes[routeNode2.name];
                 }

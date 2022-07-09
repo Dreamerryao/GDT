@@ -9,6 +9,7 @@ export interface Tree {
   id: string;
   name: string;
   value: number;
+  collapsed: boolean;
   children?: Tree[];
 }
 export interface TreeNode {

@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Tree, useDataContext } from "./contexts/DataProvider";
-import G6, { GraphData } from "@antv/g6";
+import { useEffect, useRef } from "react";
+import { useDataContext } from "./contexts/DataProvider";
+import G6 from "@antv/g6";
 
 export default function Example() {
   const { data } = useDataContext();
   const hasRendered = useRef<boolean>(false);
   useEffect(() => {
     if (!hasRendered.current && data) {
-      console.log("???");
-      console.log(data);
       const container = document.getElementById("mountNode") as HTMLDivElement;
+      const toolbar = new G6.ToolBar();
       const graph = new G6.TreeGraph({
         container: "mountNode",
         width: container.scrollWidth||1000,
@@ -26,9 +25,11 @@ export default function Example() {
             },
             "drag-canvas",
             "zoom-canvas",
-            "drag-node"
+            "drag-node",
+            "activate-relations"
           ],
         },
+        plugins: [toolbar], // 将 minimap 实例配置到图上
         defaultNode: {
           size: 26,
           anchorPoints: [
@@ -62,7 +63,7 @@ export default function Example() {
 
       graph.node(function (node:any) {
         return {
-          label: node.name,
+          label: node.name.split("@")[0],
           labelCfg: {
             offset: 10,
             position:
